@@ -3,24 +3,26 @@ import Back_end as v
 import mysql.connector as mysql
 
 
-def main(root, password):
+def main(self,password,original_screen=None):
     mycom = mysql.connect(host='localhost', user='root', password=password, database='dc_comics')
     cur = mycom.cursor()
-    root.geometry('370x330')
-    root.title("Records on gotham criminals")
-    root.config(bg='Black')
+    self.geometry('370x330')
+    self.title("Records on gotham criminals")
+    self.config(bg='Black')
     cur.execute('select * from gotham_villain')
     forgot = cur.fetchall()
     name = cur.column_names
     name = [i.capitalize() for i in name]
     if 'Serial_number' not in name:
-        cur.execute('alter table gotham_villain add serial_number int auto_increment unique first')
+        cur.execute('alter table gotham_villain add Serial_number int auto_increment unique first')
         mycom.commit()
-    a = v.Villain(root,password)
+    a = v.Villain(self,password)
+    if original_screen is not None:
+        original_screen.destroy()
 
     def add_record(): #For adding a new criminal
-        root.geometry('881x375')
-        f12 = Frame(root, width=200, height=200)
+        self.geometry('920x375')
+        f12 = Frame(self, width=200, height=200)
         f12.grid(row=0, column=0)
         l11.grid_remove()
         b11.grid_remove()
@@ -28,7 +30,7 @@ def main(root, password):
         b55.grid_remove()
         b77.grid_remove()
         b = v.Villain(f12,password)
-        b.registration(root)
+        b.registration(self)
 
     def display_record(): #For displaying all the criminal
         mycom = mysql.connect(host='localhost', user='root', password=password, database='dc_comics')
@@ -41,10 +43,10 @@ def main(root, password):
                 if len(str(j)) > len(str(biggest)):
                     biggest = str(j)
         if len(data) != 0:
-            root.geometry(f'{780+len(biggest)*15}x{100+40 * len(data)}')
+            self.geometry(f'{780+len(biggest)*15}x{100+40 * len(data)}')
         else:
-            root.geometry(f'765x120')
-        f1 = Frame(root, width=200, height=200)
+            self.geometry(f'765x120')
+        f1 = Frame(self, width=200, height=200)
         f1.grid(row=0, column=0)
         l11.grid_remove()
         b11.grid_remove()
@@ -52,12 +54,12 @@ def main(root, password):
         b55.grid_remove()
         b77.grid_remove()
         b = v.Villain(f1,password)
-        b.show_records(root)
+        b.show_records(self)
 
     def back_to_main_menu(): #back_to_main_menu
         global f1
         f1.destroy()
-        root.geometry('370x330')
+        self.geometry('370x330')
 
     def alter_record(): #alter a record 
         global f1
@@ -67,11 +69,11 @@ def main(root, password):
         b22.grid_remove()
         b55.grid_remove()
         b77.grid_remove()
-        f12 = Frame(root)
+        f12 = Frame(self)
         f12.grid(row=0, column=0, columnspan=5, rowspan=5)
-        root.geometry('700x420')
+        self.geometry('700x420')
         b = v.Villain(f12,password)
-        b.updated(root)
+        b.updated(self)
 
     def remove_record(): #delete the record
         global f1
@@ -81,16 +83,16 @@ def main(root, password):
         b22.grid_remove()
         b55.grid_remove()
         b77.grid_remove()
-        f12 = Frame(root)
+        f12 = Frame(self)
         f12.grid(row=0, column=0, columnspan=5, rowspan=5)
-        root.geometry('700x200')
+        self.geometry('700x200')
         b = v.Villain(f12,password)
-        b.deleted(root)
+        b.deleted(self)
 
     def update_record(): #open a new screen with alter,delete and back button
         global f1
-        root.geometry('500x370')
-        f1 = Frame(root)
+        self.geometry('500x370')
+        f1 = Frame(self)
         f1.grid(row=0, column=0, columnspan=4, rowspan=5)
         l13 = Label(f1, text="Update Records", fg='red', bg='black', font=('Times', '45'), highlightbackground='grey',
                     highlightthickness=2,
@@ -111,25 +113,25 @@ def main(root, password):
 
 
     #Main Menu
-    l11 = Label(root, text="Gotham Police", fg='red', bg='black', font=('Times', '35'), highlightbackground='grey',
+    l11 = Label(self, text="Gotham Police", fg='red', bg='black', font=('Times', '35'), highlightbackground='grey',
                 highlightthickness=2,
                 relief='solid')
     l11.grid(row=0, column=0, columnspan=3, sticky=W + E)
-    b11 = Button(root, text='Add a new criminal', command=add_record, fg='red', bg='black', font=('Times', '25'), width=20,
+    b11 = Button(self, text='Add a new criminal', command=add_record, fg='red', bg='black', font=('Times', '25'), width=20,
                  relief='solid', justify=CENTER, borderwidth=2,
                  highlightbackground='grey', highlightthickness=2)
     b11.grid(row=1, column=1, sticky=W + E)
-    b22 = Button(root, text='Show Gotham criminals', command=display_record, fg='red', bg='black', font=('Times', '25'),
+    b22 = Button(self, text='Show Gotham criminals', command=display_record, fg='red', bg='black', font=('Times', '25'),
                  width=20,
                  relief='solid', justify=CENTER, borderwidth=2,
                  highlightbackground='grey', highlightthickness=2)
     b22.grid(row=2, column=1, sticky=W + E)
 
-    b55 = Button(root, text='Update Records', command=update_record, fg='red', bg='black', font=('Times', '25'), width=20,
+    b55 = Button(self, text='Update Records', command=update_record, fg='red', bg='black', font=('Times', '25'), width=20,
                  relief='solid', justify=CENTER, borderwidth=2,
                  highlightbackground='grey', highlightthickness=2)
     b55.grid(row=3, column=1, sticky=W + E)
-    b77 = Button(root, text='Exit', command=lambda: root.quit(), fg='red', bg='black', font=('Times', '25'), width=20,
+    b77 = Button(self, text='Exit', command=lambda: self.quit(), fg='red', bg='black', font=('Times', '25'), width=20,
                  relief='solid', justify=CENTER, borderwidth=2,
                  highlightbackground='grey', highlightthickness=2)
     b77.grid(row=5, column=1, sticky=W + E)
