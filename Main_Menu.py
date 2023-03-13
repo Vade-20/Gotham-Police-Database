@@ -19,6 +19,10 @@ def main(self,password,original_screen=None):
     a = v.Villain(self,password)
     if original_screen is not None:
         original_screen.destroy()
+       
+
+    def exiting(n=None):
+        self.quit()
 
     def add_record(): #For adding a new criminal
         self.geometry('920x375')
@@ -56,7 +60,7 @@ def main(self,password,original_screen=None):
         b = v.Villain(f1,password)
         b.show_records(self)
 
-    def back_to_main_menu(): #back_to_main_menu
+    def back_to_main_menu(n=None): #back_to_main_menu
         global f1
         f1.destroy()
         self.geometry('370x330')
@@ -110,6 +114,8 @@ def main(self,password,original_screen=None):
                      relief='solid', justify=CENTER, borderwidth=2,
                      highlightbackground='grey', highlightthickness=2)
         b66.grid(row=3, column=1, sticky=W + E)
+        self.bind('<Escape>',back_to_main_menu)
+
 
 
     #Main Menu
@@ -131,7 +137,9 @@ def main(self,password,original_screen=None):
                  relief='solid', justify=CENTER, borderwidth=2,
                  highlightbackground='grey', highlightthickness=2)
     b55.grid(row=3, column=1, sticky=W + E)
-    b77 = Button(self, text='Exit', command=lambda: self.quit(), fg='red', bg='black', font=('Times', '25'), width=20,
+    b77 = Button(self, text='Exit', command=exiting, fg='red', bg='black', font=('Times', '25'), width=20,
                  relief='solid', justify=CENTER, borderwidth=2,
                  highlightbackground='grey', highlightthickness=2)
     b77.grid(row=5, column=1, sticky=W + E)
+    self.bind('<Escape>',exiting) 
+    

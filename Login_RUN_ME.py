@@ -8,7 +8,7 @@ root.config(bg='black')
 root.geometry('830x173')
 
 
-def check(): #check whether if the user have a database name dc_comics with tabel name gotham_villain.It also check whether the password entered is correct or not
+def check(n=None): #check whether if the user have a database name dc_comics with tabel name gotham_villain.It also check whether the password entered is correct or not
     global password
     password = e1.get()
     try:
@@ -66,7 +66,7 @@ def main_main():
                 )
     b2.grid(row=2, column=1, sticky=W + E)
 
-
+root.bind('<Return>',check)
 main_main()
 
 mainloop()

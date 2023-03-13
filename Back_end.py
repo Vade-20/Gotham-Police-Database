@@ -11,11 +11,11 @@ class Villain:
         mycom = mysql.connect(host="localhost", user="root", password=self.password, database="dc_comics")
         cur = mycom.cursor()
 
-        def back(): #Goes back to the main menu
+        def back(n=None): #Goes back to the main menu
             import Main_Menu
             Main_Menu.main(original_screen, self.password,self.root)
 
-        def yes(): #ask if the values enter in the entery box are correct
+        def yes(n=None): #ask if the values enter in the entery box are correct
             try:
                 cur.execute('select * from gotham_villain')
                 data = cur.fetchall()
@@ -179,6 +179,8 @@ class Villain:
                             relief='solid',
                             highlightbackground='grey', highlightthickness=2)
         b3.grid(row=8, column=0, sticky=tkinter.W + tkinter.E, columnspan=3)
+        original_screen.bind('<Escape>',back)
+        original_screen.bind('<Return>',yes)
 
 
 
@@ -187,7 +189,7 @@ class Villain:
         import tkinter
         mycom = mysql.connect(host='localhost', user='root', password=self.password, database='dc_comics')
         cur = mycom.cursor()
-        def back():   #Goes back to the main menu
+        def back(n=None):   #Goes back to the main menu
             import Main_Menu
             Main_Menu.main(original_screen, self.password,self.root)
         
@@ -216,6 +218,7 @@ class Villain:
                             relief='solid',
                             highlightbackground='grey', highlightthickness=2)
         b3.grid(row=len(data) + 2, column=0, columnspan=7, sticky=tkinter.W + tkinter.E)
+        original_screen.bind('<Escape>',back)
 
 
 
@@ -225,7 +228,7 @@ class Villain:
         mycom = mysl.connect(host='localhost', user='root', password=self.password, database='dc_comics')
         cur = mycom.cursor()
 
-        def back(): #Goes back to the main menu
+        def back(n=None): #Goes back to the main menu
             import Main_Menu
             Main_Menu.main(original_screen, self.password,self.root)
 
@@ -290,7 +293,7 @@ class Villain:
                             relief='solid',
                             highlightbackground='grey', highlightthickness=2)
         b3.grid(row=2, column=0, columnspan=4, sticky=tkinter.W + tkinter.E)
-
+        original_screen.bind('<Escape>',back)
 
 
     def updated(self, original_screen):
@@ -300,7 +303,7 @@ class Villain:
         mycom = mysql.connect(host="localhost", user="root", password=self.password, database="dc_comics")
         cur = mycom.cursor()
 
-        def back():
+        def back(n=None):
             import Main_Menu
             Main_Menu.main(original_screen, self.password,self.root)
 
@@ -332,7 +335,7 @@ class Villain:
             e5.insert(0, value[5])
             e6.insert(0, value[6])
 
-        def updates_record():
+        def updates_record(n=None):
             global e10
             value = e10.get()
             value = value.split('--')
@@ -452,3 +455,5 @@ class Villain:
                             relief='solid',
                             highlightbackground='grey', highlightthickness=2)
         b4.grid(row=8, column=2, sticky=tkinter.W + tkinter.E)
+        original_screen.bind('<Escape>',back)
+        original_screen.bind('<Return>',updates_record)
