@@ -232,6 +232,7 @@ class Villain:
             import Main_Menu
             Main_Menu.main(original_screen, self.password,self.root)
 
+
         def delete_record():
             global e1
             alias = e1.get()

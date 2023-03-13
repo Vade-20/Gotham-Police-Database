@@ -64,6 +64,7 @@ def main(self,password,original_screen=None):
         global f1
         f1.destroy()
         self.geometry('370x330')
+        self.bind('<Escape>',exiting)
 
     def alter_record(): #alter a record 
         global f1

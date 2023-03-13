@@ -6,7 +6,7 @@ root = Tk()
 root.title("Records on gotham criminals")
 root.config(bg='black')
 root.geometry('830x173')
-
+root.iconbitmap('Gotham-Police-Database\\favicon.ico')
 
 def check(n=None): #check whether if the user have a database name dc_comics with tabel name gotham_villain.It also check whether the password entered is correct or not
     global password
