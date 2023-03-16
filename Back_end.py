@@ -29,7 +29,8 @@ class Villain:
                 e3.delete(0, tkinter.END)
                 e4.delete(0, tkinter.END)
                 e5.delete(0, tkinter.END)
-                e6.delete(0, tkinter.END)               
+                e6.delete(0, tkinter.END)    
+                e1.focus_set()           
             except:
                 from tkinter import messagebox
                 error = messagebox.showerror('Error', 'Please enter the proper information in proper format')
