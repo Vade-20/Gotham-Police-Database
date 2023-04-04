@@ -8,6 +8,7 @@ root.config(bg='black')
 root.geometry('830x173')
 root.iconbitmap('Gotham-Police-Database\\favicon.ico')
 
+
 def check(n=None): #check whether if the user have a database name dc_comics with tabel name gotham_villain.It also check whether the password entered is correct or not
     global password
     password = e1.get()
@@ -25,10 +26,10 @@ def check(n=None): #check whether if the user have a database name dc_comics wit
             mycom.commit()
             cur.execute('show tables')
             data = cur.fetchall()
-            data = [i[0] for i in data]
+            data = [i[0].lower() for i in data]
             if 'gotham_villain' not in data:
                 cur.execute('''create table gotham_villain(Serial_number int not null primary key auto_increment,
-                Name varchar(100),Secret_Identity varchar(100),ALter_name varchar(100),Date_of_birth date,Bank_balance int,Sex varchar(100)''')
+                Name varchar(100),Secret_Identity varchar(100),Alter_name varchar(100),Date_of_birth date,Bank_balance int,Gender varchar(100))''')
                 mycom.commit()
             e1.destroy()
             l1.destroy()

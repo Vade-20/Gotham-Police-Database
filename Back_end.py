@@ -1,5 +1,4 @@
 class Villain:
-
     def __init__(self, root,password):
         self.root = root
         self.password = password
@@ -125,7 +124,7 @@ class Villain:
                            highlightthickness=2,
                            relief='solid')
         l6.grid(row=5, column=0, sticky=tkinter.W + tkinter.E)
-        l7 = tkinter.Label(self.root, text="Enter the Sex of the criminal", fg='red', bg='black', font=('Times', '20'),
+        l7 = tkinter.Label(self.root, text="Enter the Gender of the criminal", fg='red', bg='black', font=('Times', '20'),
                            highlightbackground='grey',
                            highlightthickness=2,
                            relief='solid')
@@ -184,7 +183,6 @@ class Villain:
         original_screen.bind('<Return>',yes)
 
 
-
     def show_records(self, original_screen):
         import mysql.connector as mysql
         import tkinter
@@ -222,7 +220,6 @@ class Villain:
         original_screen.bind('<Escape>',back)
 
 
-
     def deleted(self, original_screen): #For deleting record from database
         import tkinter
         import mysql.connector as mysl
@@ -238,11 +235,7 @@ class Villain:
             global e1
             alias = e1.get()
             alias = alias.split('--')
-            cur.execute(f'delete from gotham_villain where secret_identity = "{alias[1]}" ')
-            mycom.commit()
-            cur.execute('alter table gotham_villain drop Serial_number')
-            mycom.commit()
-            cur.execute('alter table gotham_villain add Serial_number integer unique auto_increment first')
+            cur.execute(f'delete from gotham_villain where serial_number = "{alias[0]}" ')
             mycom.commit()
             slide = tkinter.OptionMenu(self.root, default, *criminal_list(), command=show)
             slide.config(fg='red', bg='black', font=('Times', '15'), width=40, relief='solid',
@@ -260,14 +253,15 @@ class Villain:
             return a
 
         def show(value): #insert value inside the entry box
-            global e1
-            e1 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '18'), width=20, borderwidth=2,
-                               relief='solid',
-                               highlightbackground='grey', highlightthickness=2)
-            e1.grid(row=0, column=3, sticky=tkinter.W + tkinter.E)
-            e1.insert(0, default.get())
+            if default.get()!="Show the Member of Gotham Villain":
+                global e1
+                e1 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '18'), width=20, borderwidth=2,
+                                    relief='solid',
+                                    highlightbackground='grey', highlightthickness=2)
+                e1.grid(row=0, column=3, sticky=tkinter.W + tkinter.E)
+                e1.insert(0, default.get())
 
-            default.set(criminals[0])
+                default.set(criminals[0])
 
         criminals = criminal_list()
         default = tkinter.StringVar()
@@ -320,22 +314,25 @@ class Villain:
             return a
 
         def insert_record():
-            global e10
-            value = e10.get()
-            value = value.split('--')
-            e1.delete(0, tkinter.END)
-            e2.delete(0, tkinter.END)
-            e3.delete(0, tkinter.END)
-            e4.delete(0, tkinter.END)
-            e5.delete(0, tkinter.END)
-            e6.delete(0, tkinter.END)
+            try:
+                global e10
+                value = e10.get()
+                value = value.split('--')
+                e1.delete(0, tkinter.END)
+                e2.delete(0, tkinter.END)
+                e3.delete(0, tkinter.END)
+                e4.delete(0, tkinter.END)
+                e5.delete(0, tkinter.END)
+                e6.delete(0, tkinter.END)
 
-            e1.insert(0, value[1])
-            e2.insert(0, value[2])
-            e3.insert(0, value[3])
-            e4.insert(0, value[4])
-            e5.insert(0, value[5])
-            e6.insert(0, value[6])
+                e1.insert(0, value[1])
+                e2.insert(0, value[2])
+                e3.insert(0, value[3])
+                e4.insert(0, value[4])
+                e5.insert(0, value[5])
+                e6.insert(0, value[6])
+            except IndexError:
+                pass
 
         def updates_record(n=None):
             global e10
@@ -365,15 +362,16 @@ class Villain:
             slide.grid(row=7, column=0, sticky=tkinter.W + tkinter.E, columnspan=3)
 
         def show(value):
-            global e10
-            e10 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '18'), width=20, borderwidth=2,
-                                relief='solid',
-                                highlightbackground='grey', highlightthickness=2)
-            e10.grid(row=9, column=0, columnspan=3, sticky=tkinter.W + tkinter.E)
-            e10.insert(0, checking.get())
-            insert_record()
-
-            checking.set(a[0])
+            if checking.get() != 'Show the Member of Gotham Villain':
+                global e10
+                e10 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '18'), width=20, borderwidth=2,
+                                    relief='solid',
+                                    highlightbackground='grey', highlightthickness=2)
+                e10.grid(row=9, column=0, columnspan=3, sticky=tkinter.W + tkinter.E)
+                
+                e10.insert(0, checking.get())
+                insert_record()
+                checking.set(a[0])
 
         a = criminal_list()
         checking = tkinter.StringVar()
@@ -411,7 +409,7 @@ class Villain:
                            highlightthickness=2,
                            relief='solid')
         l5.grid(row=5, column=0, sticky=tkinter.W + tkinter.E)
-        l6 = tkinter.Label(self.root, text="Enter the Sex of the criminal", fg='red', bg='black', font=('Times', '20'),
+        l6 = tkinter.Label(self.root, text="Enter the Gender of the criminal", fg='red', bg='black', font=('Times', '20'),
                            highlightbackground='grey',
                            highlightthickness=2,
                            relief='solid')
@@ -433,12 +431,6 @@ class Villain:
                            relief='solid',
                            highlightbackground='grey', highlightthickness=2)
         e6 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '20'), width=20, borderwidth=2,
-                           relief='solid',
-                           highlightbackground='grey', highlightthickness=2)
-        e7 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '20'), width=20, borderwidth=2,
-                           relief='solid',
-                           highlightbackground='grey', highlightthickness=2)
-        e8 = tkinter.Entry(self.root, fg='red', bg='black', font=('Times', '20'), width=20, borderwidth=2,
                            relief='solid',
                            highlightbackground='grey', highlightthickness=2)
         e1.grid(row=1, column=1, columnspan=2, sticky=tkinter.W + tkinter.E)
