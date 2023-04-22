@@ -346,7 +346,7 @@ class Villain:
             v5 = e5.get()
             v6 = e6.get()
             sen = f'update gotham_villain set name="{v1}",secret_identity="{v2}",alter_name="{v3}",date_of_birth="{v4}",' \
-                  f'bank_balance={v5},sex="{v6}" where serial_number = {value[0]} '
+                  f'bank_balance={v5},gender="{v6}" where serial_number = {value[0]} '
             cur.execute(sen)
             mycom.commit()
             e1.delete(0, tkinter.END)
