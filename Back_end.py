@@ -190,6 +190,7 @@ class Villain:
         cur = mycom.cursor()
         def back(n=None):   #Goes back to the main menu
             import Main_Menu
+            original_screen.resizable(height=True,width=True)
             Main_Menu.main(original_screen, self.password,self.root)
         
         cur.execute('desc gotham_villain')

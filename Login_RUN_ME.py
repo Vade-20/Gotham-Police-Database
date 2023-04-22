@@ -6,6 +6,7 @@ root = Tk()
 root.title("Records on gotham criminals")
 root.config(bg='black')
 root.geometry('830x173')
+root.resizable(height=False,width=False)
 
 try:
     root.iconbitmap('Gotham-Police-Database\\favicon.ico')

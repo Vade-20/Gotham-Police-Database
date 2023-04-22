@@ -42,12 +42,13 @@ def main(self,password,original_screen=None):
         cur.execute('select * from gotham_villain')
         data = cur.fetchall()
         biggest = ''
+        self.resizable(height=True,width=True)
         for i in data:
             for j in i:
                 if len(str(j)) > len(str(biggest)):
                     biggest = str(j)
         if len(data) != 0:
-            self.geometry(f'{780+len(biggest)*15}x{100+40 * len(data)}')
+            self.geometry(f'{795+len(biggest)*15}x{100+40 * len(data)}')
         else:
             self.geometry(f'765x120')
         f1 = Frame(self, width=200, height=200)
